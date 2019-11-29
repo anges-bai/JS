@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js原型</title>
+		<script>
+			/**
+			 * 在不使用自定义对象的情况下，将以下两个方法追加到Array（内置对象）
+			 * search（array，taget）：在array中查询target元素第一次在数组中出现的索引
+			 * max（array）：获取数组中最大值
+			 * 
+			 * 预期方案
+			 *      内置对象
+			 *        function Array（）{
+			 * 	       //内置方法
+			 *         this.join=function("xxx"){}
+			 *         this.reverse=function(){}...
+			 * //额外的方法（不能够实现）
+			 * this.search = function（target）{....}
+			 * }
+			 * 
+			 * 使用原型对象：Prototype
+			 * 原型；如果在内置对象创建了一个原型对象，那么原型对象中追加的方法
+			 *       会自动追加到内置对象中
+			 * 
+			 * function Array（）{
+			 * 	//创建一个原型对象
+			 * this.Prototype(原型属性) = new Prototype();
+			 * 
+			 * //自动追加
+			 * this.search = function(target){...}
+			 * }
+			 * 
+			 * function Prototype（）{
+			 * this.search = function(target){...}	
+			 * }
+			 * 简写方式：
+			 * this.内置对象.Prototype{
+			 * 	      追加额外的方法
+			 * }
+			 * 原型属性（Prototype）
+			 *    作用
+			 * 1.在js中所有内置对象，都存在Prototype原型属性
+			 * 2.在js的内置对象的原型属性中，追加方法，那么该方法会自动追加内置对象中
+			 * 3.js的原型属性最终的目的就是给内置对象追加方法的
+			 * */
+			//追加search方法
+			this.Array.prototype.Search=function(target){
+				
+					for(var i=0;i<this.length;i++){
+						if(this[i]==target){
+							return i;
+						}
+					}
+					return -1;
+			}
+			//追加max方法
+			this.Array.prototype.max = function(){
+				var max=this[0];
+				for(var i=1;i<this.length;i++){
+					if(this[i]>max){
+						max=this[i];
+					}
+				}
+				retuen max;
+			}
+			var arr=[11,32,55,78,98];
+			var index = arr.Search(55);
+			document.write("当前元素第一次出现的索引是："+index+"<br/>");
+			var max = arr.max();
+			document.write("数组中最大值是："+max+"<br/>");
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
