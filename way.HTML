@@ -1,0 +1,13 @@
+function callFunction(someFunction,someArguments) {
+ return someFunction(someArguments);
+}
+function add(num) {
+ return num+10;
+}
+var result1 = callFunction(add,10);
+console.log(result1);
+function getMsg(msg) {
+ return "Hello "+msg;
+}
+var result2 = callFunction(getMsg,"yuisama");
+console.log(result2);
